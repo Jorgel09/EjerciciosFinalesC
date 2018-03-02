@@ -1,33 +1,68 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-int main (){
+int tiempo(int,int);
 
-    int x,y,z,aux;
-    //sumat: suma de las toneladas
-    //sumak: suma de la velocidad
-    int sumak=0,sumat=0;
-    int w,s;
-
-
-    printf("Ingresa el peso maximo que resiste el puente-Longitud-Numeros de vehiculos que lo atraviesan\n");
-    scanf("%d %d %d",&x,&y,&z);
-
-    for (int i=0; i<z; i++)
-        {
-            scanf("%d-%d",&w,&s);
-            sumak=sumak+s;
-           // printf("%d\n",sumak);
-            sumat=sumat+w;
-        }
-
-    if(sumat>x)
-        printf("No es posible que el convoy completo atraviese el puente");
-    else
-    {
-        printf("El recorrido se hace en %d minutos",(sumak/y)*60);
-    }
+int main(int argc, char const *argv[])
+{
+	int pesoMax,kilometros,numVehiculos;
+	float tiempototal=0;
+	printf("Ingrese el peso maximo,longitud del puente y el numero de vehiculos\n");
+	scanf("%d %d %d",&pesoMax,&kilometros,&numVehiculos);
+	int i;
+	int pesoVeh[numVehiculos];
+	int velCar[numVehiculos];
+	for (i = 0; i < numVehiculos; ++i)
+	{
+		scanf("%d%*[-]%d",&pesoVeh[i],&velCar[i]);
+	}
 
 
-    return EXIT_SUCCESS;
+	int contPeso=0;
+	int sumPesoCar=0;
+	i=0;
+	int j = 0;
+	int menor;
+	while(i<numVehiculos)
+	{
+		sumPesoCar=sumPesoCar+pesoVeh[i];
+		if (sumPesoCar+pesoVeh[i+1]>pesoMax)
+		{
+			menor=velCar[i];
+			while(j<=i){
+
+				if (velCar[j]<menor)
+				{
+					menor=velCar[j];
+				}
+			
+				j++;
+				
+				
+				
+
+			}
+
+
+			tiempototal=+tiempototal+tiempo(kilometros,menor);
+
+
+		
+			sumPesoCar=0;
+		}
+		
+		i++;
+	}
+	puts("");
+	printf("%.1f\n",tiempototal );
+	
+	return 0;
+}
+
+int tiempo(int kilometros,int s)
+{
+	float segundos;
+	segundos=((float)kilometros/(float)s)*60;
+	
+	return segundos;
+
 }

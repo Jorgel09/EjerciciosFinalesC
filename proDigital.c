@@ -1,88 +1,66 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+void buscarPatron(int renglonA, int columnaA, char A[][columnaA], int renglonB, int columnaB, char B[][columnaB] );
+
 int main(){
+	int n, renglonA, columnaA, renglonB, columnaB;
+	scanf( "%d%*c", &n );
+	puts( "" );
+	int repeticiones = 0;
+	while( repeticiones < n ){
+		scanf( "%d %d%*c", &renglonA, &columnaA );
+		char A[ renglonA ][ columnaA ];
+		for( int i = 0; i < renglonA; i ++ )
+			scanf( "%[^\n]%*c", A[i] );
+		puts("");
 
-    int z,cont=0,i,j,m,n;
-    scanf("%d",&z);
+		scanf( "%d %d%*c", &renglonB, &columnaB );
+		char B[ renglonB ][ columnaB ];
+		for( int i = 0; i < renglonB; i++ )
+			scanf( "%[^\n]%*c", B[ i ] );
+		puts("");
 
-    do{
-        scanf("%d %d",&i,&j);
-
-        int A[i][j];
-
-        for(int r=0; r<i; r++){
-            for(int c=0; c<j; c++)
-            {            
-                printf("A(%d,%d)= ",r,c);
-                scanf("%d",&A[r][c]);
-            }
-        }
-        
-        puts("");
-        scanf("%d %d",&m,&n);
-        int B[m][n];
-
-    
-        for(int r=0; r<m; r++){
-            for(int c=0; c<n; c++)
-            {            
-                printf("B(%d,%d)= ",r,c);
-                scanf("%d",&B[r][c]);
-            }
-        }
-
-        puts("");
-        puts("");
-
-        for(int r=0; r<i; r++){
-            for(int c=0; c<j; c++)
-                {
-                    printf("%d\t",A[r][c]);
-                }
-            puts("");
-        }
-        
-        puts("");
-        puts("");
-
-
-        for(int r=0; r<m; r++){
-            for(int c=0; c<n; c++)
-                {
-                    printf("%d\t",B[r][c]);
-                }
-            puts("");
-        }
-
-
-        for(int r=0; r<m; r++){
-            for(int c=0; c<n; c++)
-            {            
-                if(B[r][c]==1 && B[r][c+1]==0 && B[r+1][c]==1 && B[r+1][c+1]==1)
-                {
-                    B[r][c]=2;
-                    B[r+1][c]=2;
-                    B[r+1][c+1]=2;
-                    B[r][c+1]='*';
-                }
-            }
-        }
-
-        puts("");
-        puts("");
-        puts("");
-        puts("");
-    
-        for(int r=0; r<m; r++){
-            for(int c=0; c<n; c++)
-                {
-                    printf("%d\t",B[r][c]);
-                }
-            puts("");
-        }
-
-    }while(cont==z);
-
-    return EXIT_SUCCESS;
+		buscarPatron( renglonA, columnaA, A, renglonB, columnaB, B );
+		puts( "" );
+		for( int i = 0; i < renglonB; i++ ){
+			for( int j = 0; j < columnaB; j++ )
+				printf( "%c  ", B[i][j] );
+			puts("");
+		}
+		puts("");
+		repeticiones++;
+	}
+	return EXIT_SUCCESS;
 }
+
+void buscarPatron( int renglonA, int columnaA, char A[][columnaA], int renglonB, int columnaB, char B[][columnaB] ){
+	int bandera;
+	for( int i = 0; i <= renglonB - renglonA; i++ )
+		for( int j = 0; j <= columnaB - columnaA; j++ ){
+			if( B[i][j] == A[0][0] ){
+				bandera = 1; 
+				for( int m = 0; m < renglonA && bandera == 1; m++ )
+					for( int n = 0; n < columnaA; n++ ){
+						if( B[ i + m ][j + n ] == A[ m ][ n ] )
+							;
+						else{
+							bandera = 0;
+							break;
+						}
+					}
+				if( bandera == 1 ){
+					for( int m = 0; m < renglonA; m++ )
+						for( int n = 0; n < columnaA; n++ ){
+							if( B[i + m][j + n] == '1' )
+								B[ i + m ][ j + n ] = '2';
+							else
+								B[i + m ][ j + n ] = '*';
+						}			
+				}
+		}
+	}
+}
+
+

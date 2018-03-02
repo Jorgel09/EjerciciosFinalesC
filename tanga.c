@@ -10,16 +10,16 @@ int main (){
     int a,aux;
 
         
-
-          printf("Cuantos caracteres tiene el numero:");
-            scanf("%d",&a);
-            char cadena[a];
-            
-                printf("Ingresa la cadena:\n");
-                scanf("%s", cadena);
-
+        
+        printf("Cuantos caracteres tiene el numero:");
+        scanf("%d",&a);
+        char cadena[a];
+        
+        printf("Ingresa la cadena:\n");
+        scanf("%s", cadena);
+    
         aux=a;
-        for(int i=0; i<=aux; i++)
+        for(int i=0; i<aux; i++)
         {
             if(cadena[i]=='%')
                 {
@@ -51,7 +51,7 @@ int main (){
                 }
         
         a--;
-        printf("%d\n",suma);
+        
         }
         
         printf("\nEl primer resultado es:%d",suma);
